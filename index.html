@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buddyz</title>
+
+  <meta property="og:title" content="Buddyz – Test How Well Your Friends Know You">
+  <meta property="og:description"
+        content="Create personalized quizzes about your habits, memories, and funny quirks. Share the link, let friends guess — see who knows you best!">
+  <meta property="og:image" content="https://divine-dhacker.github.io/buddyz/previews.png">
+  <meta property="og:url" content="https://divine-dhacker.github.io/buddyz/">
+  
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+    <div id="bg-shapes"></div>
+  <header>
+    <div class="logo" id="h4">
+        <span>B</span><span>u</span><span>d</span><span>d</span><span>y</span><span>z</span>
+    </div>
+  </header>
+
+
+  <main class="hero">
+      
+    <div class="hero-grid"> 
+      
+      <div class="hero-content"> 
+          <img src="bff.png" alt="Friends" class="hero-img" />
+      
+        <h1>Who's Your Real Bestie?</h1>
+        <p>Create personalized quizzes about your habits, memories, and funny quirks. Share the link, let friends guess — see who knows you best!</p>
+        
+        <div class="steps-container">
+          
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-label">✏️ Create</div>
+          </div>
+          
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-label">📤 Share</div>
+          </div>
+          
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-label">🔍 Reveal</div>
+          </div>
+          
+        </div>
+        
+        <a href="bffchallenge.html" id="getreadyhtml" class="cta-button animate">
+        Get Started 
+        </a>
+      </div>
+      
+    </div>
+  </main>
+  
+ <footer>
+  <div class="footer-links">  
+    <a href="about.html">About Us</a>                
+    <a href="privacy.html">Privacy Policy</a>      
+    <a href="disclaimer.html">Disclaimer</a>
+    <a href="feedback.html">Feedback</a>
+  </div>
+  <div class="social-links">
+    <a href="#" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+    <a href="#" target="_blank"><i class="fa-brands fa-x-twitter"></i></a> 
+  </div>
+  <p class="copyright">&copy; 2025 Buddyz. All Rights Reserved</p>
+</footer>
+
+<div id="past-results-container"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script> 
+
+<script>
+  const firebaseConfig = {
+  apiKey: "AIzaSyAVR8OxIwbMkasKfjTVQOpi69Ikw6LraSo",
+  authDomain: "buddy-ea6cd.firebaseapp.com",
+  projectId: "buddy-ea6cd",
+  storageBucket: "buddy-ea6cd.appspot.com",
+  messagingSenderId: "947901635950",
+  appId: "1:947901635950:web:dd11c3a278eb18768e357f",
+  databaseURL: "https://buddy-ea6cd-default-rtdb.europe-west1.firebasedatabase.app"
+};
+
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+</script>
+  
+  <script src="script.js"></script>
+  <script src="home.js"></script>
+  
+  <script>
+      
+document.addEventListener('DOMContentLoaded', function() {
+  const shapesContainer = document.getElementById('bg-shapes');
+  
+  if (!shapesContainer) {
+    console.error("Element with id 'bg-shapes' not found!");
+    return;
+  }
+
+  const colors = ['#00f2fe', '#ff2b74', '#ffea00'];
+  const shapeTypes = ['circle', 'square', 'triangle'];
+
+  const placedPositions = [];
+  const minDistance = 10;
+
+  function isFarEnough(x, y) {
+    return placedPositions.every(pos => {
+      const dx = pos.x - x;
+      const dy = pos.y - y;
+      return Math.sqrt(dx * dx + dy * dy) > minDistance;
+    });
+  }
+
+  for (let i = 0; i < 30; i++) {
+    let attempts = 0;
+    let x, y;
+    do {
+      x = Math.random() * 100;
+      y = Math.random() * 100;
+      attempts++;
+      if (attempts > 100) break;
+    } while (!isFarEnough(x, y));
+
+    placedPositions.push({ x, y });
+
+    const shape = document.createElement('div');
+    const type = shapeTypes[Math.floor(Math.random() * shapeTypes.length)];
+    const color = colors[Math.floor(Math.random() * colors.length)];
+
+    shape.classList.add('shape', type);
+    shape.style.top = `${y}%`;
+    shape.style.left = `${x}%`;
+    shape.style.opacity = `${Math.random() * 0.4 + 0.2}`;
+    shape.style.backgroundColor = color;
+
+    shapesContainer.appendChild(shape);
+  }
+});
+  </script>
+</body>
+</html>

@@ -1,0 +1,662 @@
+/*
+============================================================
+PALETTE & BASE STYLES
+============================================================
+*/
+:root {
+  --color-primary: #00f2fe;    /* Cyan/Teal (Main Accent) */
+  --color-secondary: #ff2b74;  /* Hot Pink (CTA/Action) */
+  --color-accent: #ffea00;     /* Yellow (Highlight) */
+  --color-background-dark: #1a1a2e; /* Deeper Dark Blue BG */
+  --color-background-mid: #212138; /* Card/Section BG */
+  --color-text-light: #f0f0f0;
+  --color-text-muted: #aaa;
+  --color-card-bg: rgba(255, 255, 255, 0.04); /* Very subtle transparent background */
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-shadow: rgba(0, 0, 0, 0.6);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--color-background-dark);
+  color: var(--color-text-light);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  position: relative;
+  line-height: 1.6;
+}
+
+/*
+============================================================
+LOGO & HEADER
+============================================================
+*/
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  box-shadow: 0 4px 10px var(--color-shadow);
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+/* Logo Animation - Simplified color usage */
+#h4 span {
+  position: relative;
+  font-family: "Lato", sans-serif;
+  top: 0; /* Resetting original top value */
+  color: var(--color-primary); /* Primary color used for the logo */
+  display: inline-block;
+  font-size: 2rem;
+  /* Simplified shadow for cleaner look */
+  text-shadow: 0 4px 8px rgba(0, 242, 254, 0.3); 
+  animation: bounce 0.6s ease infinite alternate;
+}
+#h4 span:nth-child(2) { animation-delay: 0.05s; }
+#h4 span:nth-child(3) { animation-delay: 0.1s; }
+#h4 span:nth-child(4) { animation-delay: 0.15s; }
+#h4 span:nth-child(5) { animation-delay: 0.2s; }
+#h4 span:nth-child(6) { animation-delay: 0.25s; }
+
+@keyframes bounce {
+  100% {
+    transform: translateY(-5px);
+    text-shadow: 0 8px 15px rgba(0, 242, 254, 0.5);
+  }
+}
+
+.menu-toggle {
+  font-size: 2rem;
+  color: var(--color-text-light);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.menu-toggle:hover {
+    color: var(--color-secondary);
+}
+
+/* Sidebar Navigation (Mobile/Tablet) */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -300px; 
+  width: 280px;
+  max-width: 80vw;
+  height: 100%;
+  background: var(--color-background-dark);
+  box-shadow: -10px 0 30px var(--color-shadow);
+  transition: right 0.3s ease-out;
+  padding-top: 5rem;
+  z-index: 1000;
+}
+
+.sidebar.show { right: 0; }
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 2.5rem;
+  color: var(--color-secondary);
+  cursor: pointer;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0 1.5rem;
+}
+
+.sidebar ul li {
+  margin: 1.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.sidebar ul li a {
+  color: var(--color-text-light);
+  text-decoration: none;
+  font-size: 1.1rem;
+  display: block;
+  padding: 0.5rem 0;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.sidebar ul li a:hover {
+  color: var(--color-primary);
+  transform: translateX(5px);
+}
+
+/*
+============================================================
+MAIN CONTENT CONTAINERS
+============================================================
+*/
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 1rem 3rem 1rem;
+  z-index: 1;
+}
+
+.hero {
+  background: var(--color-background-mid);
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  max-width: 450px;
+  padding: .8rem 1.5rem;
+  margin: 25px auto;
+  margin-top: 8px;
+  text-align: center;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px var(--color-shadow);
+  border: 1px solid var(--color-border);
+  animation: fadeIn 1s ease-out;
+}
+
+.hero h1 {
+  font-size: 2.2rem;
+  color: var(--color-primary);
+  margin-bottom: 0.8rem;
+  line-height: 1.2;
+}
+
+.hero p {
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+  color: var(--color-text-muted);
+}
+
+.hero-img {
+  width: 90%;
+  max-width: 250px;
+  animation: popIn 0.8s ease-out;
+}
+
+/* Step Visualization */
+.steps-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin: 2rem 0 3rem;
+  width: 100%;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+}
+
+.step-number {
+  font-weight: bold;
+  font-size: 1.4rem;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Reduced Box Shadow Intensity */
+  box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+  margin-bottom: 0.5rem;
+  color: #000;
+}
+
+.step-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  color: var(--color-text-light);
+}
+
+/* Step specific colors */
+.steps-container .step:nth-child(1) .step-number { background: var(--color-primary); }
+.steps-container .step:nth-child(2) .step-number { background: var(--color-secondary); }
+.steps-container .step:nth-child(3) .step-number { background: var(--color-accent); }
+
+/*
+============================================================
+FORM ELEMENTS & BUTTONS
+============================================================
+*/
+
+input[type="text"] {
+  padding: 1rem 1.5rem;
+  border: 2px solid var(--color-border);
+  border-radius: 30px;
+  width: 100%;
+  max-width: 350px;
+  font-size: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  outline: none;
+  color: var(--color-text-light);
+  margin-bottom: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.cta-button {
+  margin-top: 1rem;
+  padding: 1rem 1.5rem;
+  background: var(--color-secondary);
+  color: #000;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+  width: 100%;
+  max-width: 350px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  background: #ff5c93;
+  box-shadow: 0 5px 15px rgba(255, 43, 116, 0.4);
+}
+
+.cta-button:active {
+  transform: scale(0.98);
+  box-shadow: none;
+}
+
+#getreadyhtml, button {
+    /* Use composition or apply cta-button styles */
+    /* Note: In pure CSS, we just apply the styles */
+    margin-top: 1rem;
+    padding: 1rem 1.5rem;
+    background: var(--color-secondary);
+    color: #000;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+    width: 100%;
+    max-width: 350px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+
+/* Quiz Page Specific Styles (bffchallenge.html) */
+/* Back button */
+nav a span {
+    font-size: 2rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    padding: 0.5rem;
+    display: inline-block;
+    transition: transform 0.2s;
+}
+nav a:hover span {
+    transform: translateX(-5px);
+}
+
+/* Quiz questions and options */
+#quiz-container, #friend-name-container, #share-container, #result-board-container {
+    max-width: 500px;
+    margin-top: 20px;
+}
+
+#question-container h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+.quiz-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 15px;
+    width: 100%;
+}
+
+.quiz-option {
+    background: var(--color-card-bg);
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+    cursor: pointer;
+    padding: 10px;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+    box-shadow: 0 4px 10px var(--color-shadow);
+}
+
+.quiz-option:hover {
+    border-color: var(--color-secondary);
+    background: rgba(255, 43, 116, 0.15);
+}
+
+.quiz-option img {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.option-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text-light);
+}
+
+.quiz-option.selected {
+    border-color: var(--color-primary);
+    background: rgba(0, 242, 254, 0.2);
+    transform: scale(1.03);
+}
+
+/* Result Board Styles - Professional Tabular Look */
+#result-board-container h2 {
+    color: var(--color-accent);
+    margin-bottom: 20px;
+}
+
+#result-list {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    display: table;
+    border-collapse: collapse;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+}
+
+#result-list li {
+    display: table-row;
+    transition: background 0.3s;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 1rem;
+}
+/* Table Cells */
+#result-list li strong, #result-list li span {
+    display: table-cell;
+    padding: 12px 15px;
+    text-align: left;
+    vertical-align: middle;
+}
+#result-list li span {
+    text-align: right;
+    font-weight: bold;
+    font-family: monospace;
+    width: 30%;
+}
+
+/* Header Row (Optional, but good practice) */
+.result-header {
+    background: var(--color-primary);
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+
+/* Top 3 Highlighting (Fancier Boxes) */
+/* 1st Place - Gold */
+#result-list li:nth-child(1) {
+    background: linear-gradient(90deg, #ffd7001a, var(--color-background-mid));
+    border: 2px solid gold;
+    color: var(--color-accent);
+    font-size: 1.1rem;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+/* 2nd Place - Silver */
+#result-list li:nth-child(2) {
+    background: linear-gradient(90deg, #c0c0c01a, var(--color-background-mid));
+    border: 2px solid silver;
+    color: #c0c0c0;
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+/* 3rd Place - Bronze */
+#result-list li:nth-child(3) {
+    background: linear-gradient(90deg, #cd7f321a, var(--color-background-mid));
+    border: 2px solid #cd7f32;
+    color: #cd7f32;
+}
+/* Ensure the ranking number is correctly styled within these cells */
+#result-list li:is(:nth-child(1), :nth-child(2), :nth-child(3)) strong {
+    color: inherit; /* Keep name color consistent with rank */
+}
+#result-list li:is(:nth-child(1), :nth-child(2), :nth-child(3)) span {
+    color: inherit; /* Keep score color consistent with rank */
+}
+
+
+/*
+============================================================
+FOOTER & BACKGROUND
+============================================================
+*/
+footer {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  width: 100%;
+  margin-top: auto;
+  border-top: 1px solid var(--color-border);
+  z-index: 1;
+}
+
+.footer-links a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  margin: 0 0.6rem;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--color-primary);
+}
+
+.social-links a {
+  color: var(--color-text-light);
+  margin: 0 0.8rem;
+  font-size: 1.5rem;
+}
+.social-links a:hover {
+    color: var(--color-secondary);
+    transform: scale(1.1);
+}
+
+.copyright {
+  color: #777;
+  font-size: 0.75rem;
+}
+
+/* Background Shapes - Reduced opacity */
+#bg-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6; /* Reduced opacity */
+}
+.shape { opacity: 0.3; } /* Further reduced shape opacity */
+
+/*
+============================================================
+DESKTOP VIEW (Min-width: 768px)
+============================================================
+*/
+@media (min-width: 768px) {
+  header { padding: 1.5rem 3rem; }
+  
+  .hero {
+    max-width: 900px;
+    padding: 3rem;
+  }
+  
+  /* Home Page Grid Layout */
+  .hero-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 50px;
+      align-items: center;
+      text-align: left;
+      width: 100%;
+  }
+  
+  .hero-content {
+      text-align: left;
+  }
+  
+  .hero h1 { font-size: 3rem; }
+  
+  .steps-container {
+      justify-content: flex-start;
+      gap: 2rem;
+  }
+  
+  /* Alignment for inputs/buttons on desktop home page */
+  input[type="text"],
+  #getreadyhtml,
+  button {
+    margin-left: 0;
+  }
+  
+  /* Sidebar toggle hidden, nav visible */
+  .menu-toggle { display: none; }
+  .sidebar {
+      position: static;
+      width: auto;
+      height: auto;
+      background: none;
+      box-shadow: none;
+      padding-top: 0;
+      transition: none;
+  }
+  .sidebar ul { display: flex; padding: 0; margin: 0; }
+  .sidebar ul li { margin: 0 10px; border-bottom: none; }
+  .sidebar ul li a:hover { background: rgba(0, 242, 254, 0.1); transform: none; }
+  .close-btn { display: none; }
+  
+  footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+  }
+  
+  /* Quiz Page Desktop Layout */
+  #quiz-container, #friend-name-container, #share-container, #result-board-container {
+    max-width: 700px;
+  }
+  
+  .quiz-options {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  
+  #result-list {
+      max-width: 600px;
+  }
+
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: var(--color-text-muted); /* Light gray */
+    font-size: 1.2rem;
+    padding: 0;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: color 0.2s;
+    flex-shrink: 0; /* Prevents button from shrinking */
+    line-height: 1; /* Aligns emoji better */
+}
+
+.delete-btn:hover {
+    color: var(--color-danger); /* Red on hover */
+    transform: scale(1.1);
+}
+
+/* Update the li layout to align the button to the right */
+#result-list li {
+    display: flex; /* Makes the list item a flex container */
+    justify-content: space-between; /* Spreads the info and delete button */
+    align-items: center; /* Vertically centers content */
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.75rem;
+    /* ... rest of existing styles ... */
+}
+
+#result-list li .result-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-right: 15px; /* Space before the delete button */
+}
+
+#result-list li strong {
+    flex-grow: 1; /* Allows the name to take available space */
+}
+
+.keyboard-hint {
+    background: var(--color-primary); /* Use a primary color for emphasis */
+    color: var(--color-background);
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 8px;
+    font-size: 0.9em;
+    display: inline-block;
+    min-width: 28px;
+    text-align: center;
+}
+
+/* Ensure the option label still flows correctly */
+.quiz-option .option-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+}
+
