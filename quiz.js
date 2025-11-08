@@ -705,6 +705,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Next button logic
   nextBtn.addEventListener('click', () => {
+    if (window.friendQuizID) return; // This handler is for the creator only
+
     const selectedAnswer = getSelectedAnswer();
     if (!selectedAnswer) {
       alert("Please select an answer before proceeding.");
