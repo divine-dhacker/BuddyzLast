@@ -549,6 +549,7 @@ DESKTOP VIEW (Min-width: 768px)
 /* Update the li layout to align the button to the right */
 #result-list li {
     display: flex; /* Makes the list item a flex container */
+    flex-direction: row;
     justify-content: space-between; /* Spreads the info and delete button */
     align-items: center; /* Vertically centers content */
     padding: 1rem;
