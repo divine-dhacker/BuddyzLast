@@ -877,8 +877,8 @@ document.addEventListener('DOMContentLoaded', () => {
               // maxPossibleScore for the creator quiz is now stored in the quiz root as 'maxScore'
               const denominator = r.possiblePoints !== undefined ? r.possiblePoints : maxPossibleScore; 
               
-              const deleteButton = isCreator ? 
-                `<button class="delete-btn" data-key="${key}" title="Delete Result" onclick="handleDeleteResponse('${quizID}', '${key}')">🗑️</button>` : '';
+              const deleteButton = isCreator ?
+                `<button class="delete-btn" data-key="${key}" title="Delete Result" onclick="handleDeleteResponse('${quizID}', '${key}')"><i class="fas fa-trash"></i></button>` : '';
 
               return `
                 <li data-key="${key}">

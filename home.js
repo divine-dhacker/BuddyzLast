@@ -38,24 +38,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
           const quizLink = `${window.location.origin}${window.location.pathname.replace('index.html', 'bffchallenge.html')}?id=${quizID}`;
 
-          let responsesHTML = '';
+          let responsesHTML = `
+            <div class="result-table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+          `;
           if (quizData.responses) {
             const responses = Object.values(quizData.responses);
             responses.sort((a, b) => b.score - a.score); // Sort by score descending
-            responses.forEach(response => {
-              responsesHTML += `<li>${response.friendName}: ${response.score}/${quizData.answers.length}</li>`;
+            responses.forEach((response, index) => {
+              responsesHTML += `
+                <tr>
+                  <td>${index + 1}</td>
+                  <td>${response.friendName}</td>
+                  <td>${response.score}/${quizData.answers.length}</td>
+                </tr>
+              `;
             });
           } else {
-            responsesHTML += '<li>No responses yet.</li>';
+            responsesHTML += '<tr><td colspan="3">No responses yet.</td></tr>';
           }
+          responsesHTML += `
+                </tbody>
+              </table>
+            </div>
+          `;
 
           quizResultElement.innerHTML = `
             <div class="result-info">
               <strong>${quizData.name}'s Quiz</strong>
               <p>Share link: <a href="${quizLink}" target="_blank">Copy Link</a></p>
             </div>
-            <button class="delete-btn" data-quiz-id="${quizID}">🗑️</button>
-            <ul>${responsesHTML}</ul>
+            <button class="delete-btn" data-quiz-id="${quizID}"><i class="fas fa-trash"></i></button>
+            ${responsesHTML}
           `;
 
           resultList.appendChild(quizResultElement);

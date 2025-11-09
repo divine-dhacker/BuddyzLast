@@ -390,74 +390,6 @@ nav a:hover span {
     list-style: none;
     padding: 0;
     width: 100%;
-    display: table;
-    border-collapse: collapse;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-}
-
-#result-list li {
-    display: table-row;
-    transition: background 0.3s;
-    border-bottom: 1px solid var(--color-border);
-    font-size: 1rem;
-}
-/* Table Cells */
-#result-list li strong, #result-list li span {
-    display: table-cell;
-    padding: 12px 15px;
-    text-align: left;
-    vertical-align: middle;
-}
-#result-list li span {
-    text-align: right;
-    font-weight: bold;
-    font-family: monospace;
-    width: 30%;
-}
-
-/* Header Row (Optional, but good practice) */
-.result-header {
-    background: var(--color-primary);
-    color: #000;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-}
-
-
-/* Top 3 Highlighting (Fancier Boxes) */
-/* 1st Place - Gold */
-#result-list li:nth-child(1) {
-    background: linear-gradient(90deg, #ffd7001a, var(--color-background-mid));
-    border: 2px solid gold;
-    color: var(--color-accent);
-    font-size: 1.1rem;
-    font-weight: bold;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-}
-/* 2nd Place - Silver */
-#result-list li:nth-child(2) {
-    background: linear-gradient(90deg, #c0c0c01a, var(--color-background-mid));
-    border: 2px solid silver;
-    color: #c0c0c0;
-    font-weight: 600;
-    font-size: 1.05rem;
-}
-/* 3rd Place - Bronze */
-#result-list li:nth-child(3) {
-    background: linear-gradient(90deg, #cd7f321a, var(--color-background-mid));
-    border: 2px solid #cd7f32;
-    color: #cd7f32;
-}
-/* Ensure the ranking number is correctly styled within these cells */
-#result-list li:is(:nth-child(1), :nth-child(2), :nth-child(3)) strong {
-    color: inherit; /* Keep name color consistent with rank */
-}
-#result-list li:is(:nth-child(1), :nth-child(2), :nth-child(3)) span {
-    color: inherit; /* Keep score color consistent with rank */
 }
 
 
@@ -660,3 +592,46 @@ DESKTOP VIEW (Min-width: 768px)
     width: 100%;
 }
 
+.result-table-container {
+  width: 100%;
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: rgba(0, 242, 254, 0.1);
+}
+
+th, td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+th {
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+tbody tr:nth-child(even) {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+tbody tr:hover {
+  background: rgba(0, 242, 254, 0.1);
+}
+
+td {
+  color: var(--color-text-light);
+}
+
+td:first-child {
+  font-weight: bold;
+  color: var(--color-accent);
+}
