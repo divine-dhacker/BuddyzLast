@@ -804,7 +804,7 @@ document.addEventListener('DOMContentLoaded', () => {
         maxScore: finalAnswersToSave.filter(a => a.answer !== '__SKIPPED__').length
       }).then(() => {
         console.log("Quiz saved successfully!");
-        saveQuiz(quizID);
+        saveCreatedQuiz(quizID);
 
         quizLinkInput.value = `${window.location.origin}${window.location.pathname}?id=${quizID}`;
         shareContainer.style.display = 'flex';
@@ -916,14 +916,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Local storage functions (unchanged)
-  function getSavedQuizzes() {
-    return JSON.parse(localStorage.getItem('savedQuizzes')) || {};
+  function getQuizzes(key) {
+    return JSON.parse(localStorage.getItem(key)) || {};
   }
 
   function saveQuiz(quizID) {
-    const savedQuizzes = getSavedQuizzes();
+    const savedQuizzes = getQuizzes('savedQuizzes');
     savedQuizzes[quizID] = true;
     localStorage.setItem('savedQuizzes', JSON.stringify(savedQuizzes));
+  }
+
+  function saveCreatedQuiz(quizID) {
+    const createdQuizzes = getQuizzes('createdQuizzes');
+    createdQuizzes[quizID] = true;
+    localStorage.setItem('createdQuizzes', JSON.stringify(createdQuizzes));
   }
 
   // URL Parameter Handling (mostly unchanged)
