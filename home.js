@@ -4,20 +4,26 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  function getSavedQuizzes() {
-    return JSON.parse(localStorage.getItem('savedQuizzes')) || {};
+  function getQuizzes(key) {
+    return JSON.parse(localStorage.getItem(key)) || {};
   }
 
   function removeQuiz(quizID) {
-    const savedQuizzes = getSavedQuizzes();
+    const createdQuizzes = getQuizzes('createdQuizzes');
+    const savedQuizzes = getQuizzes('savedQuizzes');
+
+    delete createdQuizzes[quizID];
     delete savedQuizzes[quizID];
+
+    localStorage.setItem('createdQuizzes', JSON.stringify(createdQuizzes));
     localStorage.setItem('savedQuizzes', JSON.stringify(savedQuizzes));
     database.ref('quizzes/' + quizID).remove();
   }
 
   function displayQuizzes() {
-    const savedQuizzes = getSavedQuizzes();
-    const quizIDs = Object.keys(savedQuizzes);
+    const createdQuizzes = getQuizzes('createdQuizzes');
+    const savedQuizzes = getQuizzes('savedQuizzes');
+    const quizIDs = [...new Set([...Object.keys(createdQuizzes), ...Object.keys(savedQuizzes)])];
 
     pastResultsContainer.style.display = 'flex';
     if (quizIDs.length === 0) {
@@ -58,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <tr>
                   <td>${index + 1}</td>
                   <td>${response.friendName}</td>
-                  <td>${response.score}/${quizData.answers.length}</td>
+                  <td>${response.score}/${quizData.maxScore}</td>
                 </tr>
               `;
             });
@@ -71,25 +77,29 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           `;
 
+          const isCreator = createdQuizzes[quizID];
+
           quizResultElement.innerHTML = `
             <div class="result-info">
               <strong>${quizData.name}'s Quiz</strong>
               <p>Share link: <a href="${quizLink}" target="_blank">Copy Link</a></p>
             </div>
-            <button class="delete-btn" data-quiz-id="${quizID}"><i class="fas fa-trash"></i></button>
+            ${isCreator ? `<button class="delete-btn" data-quiz-id="${quizID}"><i class="fas fa-trash"></i></button>` : ''}
             ${responsesHTML}
           `;
 
           resultList.appendChild(quizResultElement);
 
           const deleteButton = quizResultElement.querySelector('.delete-btn');
-          deleteButton.addEventListener('click', (e) => {
-            const quizIdToDelete = e.target.getAttribute('data-quiz-id');
-            if (confirm('Are you sure you want to delete this quiz permanently?')) {
-              removeQuiz(quizIdToDelete);
-              displayQuizzes();
-            }
-          });
+          if (deleteButton) {
+            deleteButton.addEventListener('click', (e) => {
+              const quizIdToDelete = e.target.closest('[data-quiz-id]').dataset.quizId;
+              if (confirm('Are you sure you want to delete this quiz permanently?')) {
+                removeQuiz(quizIdToDelete);
+                displayQuizzes();
+              }
+            });
+          }
         }
       });
     });
