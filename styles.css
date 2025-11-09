@@ -546,6 +546,11 @@ DESKTOP VIEW (Min-width: 768px)
     transform: scale(1.1);
 }
 
+#result-list {
+  display: flex; /* Makes the list item a flex container */
+    flex-direction: column;
+}
+
 /* Update the li layout to align the button to the right */
 #result-list li {
     display: flex; /* Makes the list item a flex container */
