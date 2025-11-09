@@ -549,7 +549,7 @@ DESKTOP VIEW (Min-width: 768px)
 /* Update the li layout to align the button to the right */
 #result-list li {
     display: flex; /* Makes the list item a flex container */
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between; /* Spreads the info and delete button */
     align-items: center; /* Vertically centers content */
     padding: 1rem;
@@ -560,7 +560,7 @@ DESKTOP VIEW (Min-width: 768px)
 
 #result-list li .result-info {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     width: 100%;
@@ -595,8 +595,6 @@ DESKTOP VIEW (Min-width: 768px)
 }
 
 .result-table-container {
-  display: flex;
-  flex-direction: row;
   width: 100%;
   margin-top: 1rem;
   border-radius: 8px;
