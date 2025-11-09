@@ -546,11 +546,6 @@ DESKTOP VIEW (Min-width: 768px)
     transform: scale(1.1);
 }
 
-#result-list {
-  display: flex;
-  flex-direction: row;
-}
-
 /* Update the li layout to align the button to the right */
 #result-list li {
     display: flex; /* Makes the list item a flex container */
@@ -600,6 +595,8 @@ DESKTOP VIEW (Min-width: 768px)
 }
 
 .result-table-container {
+  display: flex;
+  flex-direction: row;
   width: 100%;
   margin-top: 1rem;
   border-radius: 8px;
